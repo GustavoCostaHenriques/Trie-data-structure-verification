@@ -59,7 +59,7 @@ import java.util.*;
  */
 
 /** 
- * This class is used to give All-Du_Paths Coverage for the 
+ * This class is used to give All-Du-Paths Coverage for the 
  * longesPrefixOf method, of the TST class.
  * 
  * All the Du Paths that exist are:
