@@ -70,18 +70,18 @@ import java.util.*;
  * 
  * => Parameter Coupling
  * 1. last-def(x.left)=>first-use(x) [5,a,(b,c)] ✅
- * 2. last-def(x.left)=>first-use(x) [5,a,(b,d)]
- * 3. last-def(x.right)=>first-use(x) [7,a,(b,c)]
- * 4. last-def(x.right)=>first-use(x) [7,a,(b,d)]
- * 5. last-def(x.mid)=>first-use(x) [9,a,(b,c)]
- * 6. last-def(x.mid)=>first-use(x) [9,a,(b,d)]
- * 7. last-def(d)=>first-use(d) [0,1,2,3,5,a,b]
+ * 2. last-def(x.left)=>first-use(x) [5,a,(b,d)] 🔹
+ * 3. last-def(x.right)=>first-use(x) [7,a,(b,c)] ✅
+ * 4. last-def(x.right)=>first-use(x) [7,a,(b,d)] 🔹
+ * 5. last-def(x.mid)=>first-use(x) [9,a,(b,c)] ✅
+ * 6. last-def(x.mid)=>first-use(x) [9,a,(b,d)] 🔹
+ * 7. last-def(d)=>first-use(d) [0,1,2,3,5,a,b] 🔹
  * 8. last-def(d)=>first-use(d) [0,1,3,5,a,b] ✅
- * 9. last-def(d)=>first-use(d) [0,1,2,3,4,7,a,b]
- * 10. last-def(d)=>first-use(d) [0,1,3,4,7,a,b]
- * 11. last-def(d)=>first-use(d) [0,1,2,3,4,8,9,a,b]
- * 12. last-def(d)=>first-use(d) [0,1,3,4,8,9,a,b]
- * 13. last-def(d)=>first-use(d) [9,a,b]
+ * 9. last-def(d)=>first-use(d) [0,1,2,3,4,7,a,b] 🔹
+ * 10. last-def(d)=>first-use(d) [0,1,3,4,7,a,b] ✅
+ * 11. last-def(d)=>first-use(d) [0,1,2,3,4,8,9,a,b] 🔹
+ * 12. last-def(d)=>first-use(d) [0,1,3,4,8,9,a,b] ✅
+ * 13. last-def(d)=>first-use(d) [9,a,b] 🔹
  *
  * => Return Coupling
  * 14. last-def(x.left)=>first-use(x.left) [e,g,5,6] ❌
@@ -94,8 +94,8 @@ import java.util.*;
  * 21. last-def(x.mid)=>first-use(x.right) [j,g,7,6] ❌
  * 22. last-def(x.mid)=>first-use(x.mid) [j,g,9,6] ❌
  * 23. last-def(x.val)=>first-use(x.left) [k,g,5,6] ✅
- * 24. last-def(x.val)=>first-use(x.right) [k,g,7,6]
- * 25. last-def(x.val)=>first-use(x.mid) [k,g,9,6]
+ * 24. last-def(x.val)=>first-use(x.right) [k,g,7,6] ✅
+ * 25. last-def(x.val)=>first-use(x.mid) [k,g,9,6] ✅
  * 
  * Note: The definition of the All-Coupling-Use-Paths is the following:
  *          
@@ -127,19 +127,32 @@ public class TestAllCouplingUsePathsforprivateput {
     }
 
     /**
-     * Test Path: [0,1,3,5,a,b,c,d,f,i,k,g,5,6] - 1,8,25.
+     * Test Path: [0,1,3,5,a,b,c,d,f,i,k,g,5,6] - 1,8,23.
      */
     @Test
     public void testWithLeftValue() {
-        TST<Integer> st = new TST<>();
-        Node<T> X = st.put("a", 2);
+        TrieFilled.put("a", 2);
 
-        assertEquals(X, st.put("a",2));
+        assertEquals(2, TrieFilled.get("a"));
     }   
 
+    /**
+     * Test Path: [0,1,3,4,7,a,b,c,d,f,i,k,g,7,6] - 3,10,24.
+     */
     @Test
-    public void testWithRightValue() {}
+    public void testWithRightValue() {
+        TrieFilled.put("t", 3);
 
+        assertEquals(3, TrieFilled.get("t"));
+    }
+
+    /**
+     * Test Path: [0,1,3,4,8,9,a,b,c,d,f,i,k,g,9,6] - 5,12,25.
+     */
     @Test
-    public void testWithMidValue() {}
+    public void testWithMidValue() {
+        TrieFilled.put("mm", 4);
+
+        assertEquals(4, TrieFilled.get("mm"));
+    }
 }
