@@ -133,7 +133,7 @@ public class TestAllCouplingUsePathsforprivateput {
     public void testWithLeftValue() {
         TrieFilled.put("a", 2);
 
-        assertEquals(2, TrieFilled.get("a"));
+        assertEquals(2, (int) TrieFilled.get("a"));
     }   
 
     /**
@@ -143,7 +143,7 @@ public class TestAllCouplingUsePathsforprivateput {
     public void testWithRightValue() {
         TrieFilled.put("t", 3);
 
-        assertEquals(3, TrieFilled.get("t"));
+        assertEquals(3, (int) TrieFilled.get("t"));
     }
 
     /**
@@ -153,6 +153,6 @@ public class TestAllCouplingUsePathsforprivateput {
     public void testWithMidValue() {
         TrieFilled.put("mm", 4);
 
-        assertEquals(4, TrieFilled.get("mm"));
+        assertEquals(4, (int) TrieFilled.get("mm"));
     }
 }
